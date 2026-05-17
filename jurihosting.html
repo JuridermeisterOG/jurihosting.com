@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JuriHosting.com – Game Server Hosting</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root{
+  --bg:#060810;--bg2:#0a0c14;--bg3:#0e1020;
+  --border:#1a1e2e;--border2:#252a40;
+  --text:#e8ecf4;--text2:#8899bb;--text3:#3a4060;
+  --blue:#1a6fff;--blue2:#2277ff;--green:#22c55e;
+  --amber:#f59e0b;--red:#ef4444;--purple:#a78bfa;
+  --mono:'JetBrains Mono',monospace;
+  --display:'Rajdhani',sans-serif;
+  --body:'Outfit',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:hidden;line-height:1.6}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(6,8,16,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:22px;font-weight:700;color:var(--text);letter-spacing:.05em;text-decoration:none;cursor:pointer}
+.nav-logo-box{width:32px;height:32px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-link{color:var(--text3);font-size:13px;padding:6px 13px;border-radius:6px;cursor:pointer;transition:all .15s;text-decoration:none;border:none;background:none}
+.nav-link:hover{color:var(--text2);background:rgba(255,255,255,.04)}
+.nav-link.active{color:var(--text)}
+.nav-cta{background:var(--blue);color:#fff;border:none;border-radius:7px;padding:7px 18px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--body);text-decoration:none;transition:background .15s}
+.nav-cta:hover{background:var(--blue2)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:120px 40px 80px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(26,111,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(26,111,255,.04) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black,transparent)}
+.hero-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:800px;height:400px;background:radial-gradient(ellipse,rgba(26,111,255,.12) 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(26,111,255,.1);border:1px solid rgba(26,111,255,.25);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--blue);margin-bottom:28px;font-family:var(--mono)}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-family:var(--display);font-size:clamp(52px,8vw,96px);font-weight:700;line-height:.95;letter-spacing:-.01em;margin-bottom:24px}
+.hero h1 span{color:var(--blue)}
+.hero-sub{font-size:17px;color:var(--text2);max-width:560px;margin:0 auto 40px;font-weight:300;line-height:1.7}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:60px}
+.btn-primary{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:13px 28px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--body);display:inline-flex;align-items:center;gap:8px;text-decoration:none;transition:all .2s}
+.btn-primary:hover{background:var(--blue2);transform:translateY(-1px);box-shadow:0 8px 30px rgba(26,111,255,.3)}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border2);border-radius:8px;padding:12px 28px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--body);display:inline-flex;align-items:center;gap:8px;text-decoration:none;transition:all .2s}
+.btn-ghost:hover{border-color:var(--text3);color:var(--text)}
+.hero-stats{display:flex;gap:48px;justify-content:center;flex-wrap:wrap}
+.hstat-val{font-family:var(--display);font-size:32px;font-weight:700;color:var(--text);line-height:1}
+.hstat-val.green{color:var(--green)}
+.hstat-label{font-size:12px;color:var(--text3);margin-top:4px;text-align:center}
+
+/* GAME STRIP */
+.games-strip{padding:14px 0;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden}
+.gs-scroll{display:flex;gap:28px;animation:marquee 22s linear infinite;width:max-content}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.gs-chip{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text3);white-space:nowrap;padding:3px 14px;border-radius:20px;border:1px solid var(--border)}
+
+/* SECTIONS */
+section{padding:90px 40px}
+.container{max-width:1160px;margin:0 auto}
+.sec-label{font-family:var(--mono);font-size:11px;color:var(--blue);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px}
+.sec-title{font-family:var(--display);font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.05;margin-bottom:16px}
+.sec-sub{font-size:15px;color:var(--text2);max-width:520px;line-height:1.7;font-weight:300}
+
+/* FEATURES */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:50px}
+.feat-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:26px;transition:border-color .2s,transform .2s}
+.feat-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.feat-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:16px}
+.fi-blue{background:rgba(26,111,255,.12);color:var(--blue)}
+.fi-green{background:rgba(34,197,94,.12);color:var(--green)}
+.fi-amber{background:rgba(245,158,11,.12);color:var(--amber)}
+.fi-purple{background:rgba(167,139,250,.12);color:var(--purple)}
+.fi-red{background:rgba(239,68,68,.12);color:var(--red)}
+.fi-cyan{background:rgba(34,211,238,.12);color:#22d3ee}
+.feat-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:8px}
+.feat-desc{font-size:12px;color:var(--text3);line-height:1.65}
+
+/* GAMES */
+.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:40px}
+.game-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s}
+.game-card:hover{border-color:var(--border2);background:var(--bg3)}
+.game-card:hover .garrow{opacity:1;transform:translateX(0)}
+.game-emoji{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.g-mc{background:#0d1a0d}.g-cs{background:#0d0d1a}.g-val{background:#1a100a}.g-rust{background:#1a0d08}.g-pal{background:#0a1020}.g-ter{background:#080f08}.g-ark{background:#100f08}.g-7d{background:#0f0808}
+.gname{font-size:12px;font-weight:500;color:var(--text);flex:1}
+.gmeta{font-size:10px;color:var(--text3)}
+.gbadge{font-size:10px;padding:2px 6px;border-radius:20px;margin-top:3px;display:inline-block}
+.gb-free{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.gb-iron{background:rgba(26,111,255,.1);color:var(--blue);border:1px solid rgba(26,111,255,.2)}
+.gb-dia{background:rgba(167,139,250,.1);color:var(--purple);border:1px solid rgba(167,139,250,.2)}
+.garrow{opacity:0;transform:translateX(-4px);transition:all .2s;color:var(--text3);font-size:13px;flex-shrink:0}
+
+/* ══════════════════════════════════════════
+   DASHBOARD PANEL  (full embedded app)
+══════════════════════════════════════════ */
+.panel-section{padding:90px 40px;background:var(--bg2)}
+.panel-wrap{max-width:1160px;margin:40px auto 0;background:var(--bg);border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 40px 120px rgba(0,0,0,.6)}
+.panel-topbar{display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:#060810;border-bottom:1px solid var(--border);height:44px}
+.panel-nav{display:flex}
+.pnl{padding:0 11px;font-size:11px;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;height:44px;display:flex;align-items:center;gap:4px;transition:color .12s}
+.pnl.active{color:var(--blue);border-bottom-color:var(--blue)}
+.pnl:hover:not(.active){color:var(--text2)}
+.panel-right{display:flex;align-items:center;gap:8px}
+.p-badge{background:rgba(26,111,255,.12);color:var(--blue);font-size:10px;padding:2px 8px;border-radius:20px;border:1px solid rgba(26,111,255,.2)}
+.p-av{width:24px;height:24px;background:var(--bg3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text2)}
+.panel-layout{display:grid;grid-template-columns:170px 1fr;min-height:480px}
+.panel-sidebar{background:#060810;border-right:1px solid var(--border);padding:8px 0;display:flex;flex-direction:column}
+.psec{padding:7px 10px 2px;font-size:9px;font-weight:500;color:#1e2438;text-transform:uppercase;letter-spacing:.09em}
+.psi{display:flex;align-items:center;gap:7px;padding:6px 12px;font-size:11px;color:var(--text3);cursor:pointer;border-left:2px solid transparent;transition:all .1s}
+.psi:hover{color:var(--text2);background:rgba(255,255,255,.02)}
+.psi.active{color:var(--blue);background:rgba(26,111,255,.06);border-left-color:var(--blue)}
+.psi i{font-size:13px;flex-shrink:0}
+.psi-dot{width:5px;height:5px;border-radius:50%;background:var(--green);margin-left:auto;flex-shrink:0}
+.ps-spacer{flex:1}
+.ps-user{padding:8px 12px;border-top:1px solid var(--border)}
+.ps-uname{font-size:11px;color:var(--text2)}
+.ps-uplan{font-size:10px;color:var(--text3)}
+.panel-main{overflow-y:auto;max-height:480px}
+.pg{display:none;padding:14px 16px}
+.pg.active{display:block}
+
+/* shared panel components */
+.pcard{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:11px 13px;margin-bottom:8px}
+.pct{font-size:10px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.pct i{font-size:12px;color:var(--blue)}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.pt{font-size:14px;font-weight:500;color:var(--text)}
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:11px}
+.sc{background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:9px 11px}
+.sl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;display:flex;align-items:center;gap:3px}
+.sl i{font-size:11px;color:var(--blue)}
+.sv{font-size:17px;font-weight:500;color:var(--text)}
+.ss{font-size:10px;margin-top:1px;color:var(--text3)}
+.ok{color:var(--green)}.warn{color:var(--amber)}.danger{color:var(--red)}.info{color:var(--blue)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.bw{margin-bottom:7px}
+.bl{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-bottom:2px}
+.bt{height:4px;background:var(--border);border-radius:99px;overflow:hidden}
+.bf{height:100%;border-radius:99px}
+.bf-b{background:var(--blue)}.bf-g{background:var(--green)}.bf-a{background:var(--amber)}.bf-r{background:var(--red)}
+.prow{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.prow:last-child{border-bottom:none}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.don{background:var(--green)}.dof{background:var(--red)}.dwa{background:var(--amber)}
+.pbadge{font-size:10px;padding:2px 7px;border-radius:20px;font-weight:500;white-space:nowrap}
+.pb-on{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.pb-off{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2)}
+.pb-warn{background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.2)}
+.pb-blue{background:rgba(26,111,255,.1);color:var(--blue);border:1px solid rgba(26,111,255,.2)}
+.pb-gray{background:rgba(255,255,255,.04);color:var(--text3);border:1px solid var(--border)}
+.p-btn{border-radius:6px;padding:5px 12px;font-size:11px;cursor:pointer;border:1px solid;display:inline-flex;align-items:center;gap:4px;font-family:var(--body);transition:all .12s}
+.pb-primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.pb-primary:hover{background:var(--blue2)}
+.pb-green{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.2);color:var(--green)}
+.pb-red{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.2);color:var(--red)}
+.pb-ghost{background:rgba(255,255,255,.04);border-color:var(--border2);color:var(--text2)}
+
+/* srv list */
+.srv-list{display:flex;flex-direction:column;gap:6px}
+.srv{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:9px 13px;display:flex;align-items:center;gap:9px;cursor:pointer;transition:border-color .15s}
+.srv:hover{border-color:var(--border2)}
+.srv:hover .sarrow{opacity:1;transform:translateX(0)}
+.gi{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.sinfo{flex:1;min-width:0}
+.sname{font-size:12px;font-weight:500;color:var(--text);margin-bottom:1px}
+.smeta{font-size:10px;color:var(--text3)}
+.sres{width:65px;flex-shrink:0}
+.rl{font-size:10px;color:var(--text3);display:flex;justify-content:space-between}
+.rt{height:3px;background:var(--border);border-radius:99px;overflow:hidden;margin-bottom:3px}
+.rf{height:100%;border-radius:99px}
+.sarrow{opacity:0;transform:translateX(-3px);transition:all .15s;color:var(--text3);font-size:14px;flex-shrink:0}
+
+/* console */
+.con-layout{display:grid;grid-template-columns:1fr 155px;gap:9px}
+.con-box{background:#030508;border-radius:7px;padding:9px 11px;font-family:var(--mono);font-size:11px;line-height:1.75;color:#4a5a80;height:200px;overflow-y:auto}
+.cl{display:block}
+.c-ok{color:var(--green)}.c-warn{color:var(--amber)}.c-acc{color:var(--blue)}.c-sys{color:#38bdf8}
+.cmd-bar{display:flex;gap:7px;background:#030508;border:1px solid var(--border);border-radius:7px;padding:7px 10px;align-items:center;margin-top:7px}
+.cmd-p{color:var(--blue);font-family:var(--mono);font-size:12px}
+.cmd-i{flex:1;background:transparent;border:none;outline:none;font-family:var(--mono);font-size:11px;color:var(--text);caret-color:var(--blue)}
+.cmd-s{background:rgba(26,111,255,.12);border:1px solid rgba(26,111,255,.2);color:var(--blue);border-radius:5px;padding:3px 9px;font-size:11px;cursor:pointer;font-family:var(--body)}
+.inf{background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:8px 10px;margin-bottom:6px}
+.il{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px;display:flex;align-items:center;gap:4px}
+.il i{font-size:11px;color:var(--blue)}
+.iv{font-size:11px;font-weight:500;color:var(--text)}
+.is{font-size:10px;color:var(--text3);margin-top:1px}
+.res3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:8px}
+.r3{background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:8px 10px}
+.r3h{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+.r3t{font-size:9px;color:var(--text3);display:flex;align-items:center;gap:3px}
+.r3t i{font-size:12px;color:var(--blue)}
+.r3v{font-size:11px;font-weight:500;color:var(--text)}
+.r3b{height:3px;background:var(--border);border-radius:99px;overflow:hidden;margin-top:4px}
+.r3f{height:100%;border-radius:99px}
+
+/* ddos */
+.shield-banner{background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.1);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:12px;margin-bottom:11px}
+.sh-icon{width:36px;height:36px;background:rgba(34,197,94,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sh-icon i{font-size:18px;color:var(--green)}
+.sh-t{font-size:12px;font-weight:500;color:var(--green);margin-bottom:1px}
+.sh-s{font-size:10px;color:rgba(34,197,94,.3)}
+.live-pill{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--green);margin-left:auto;flex-shrink:0}
+.pulse-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;flex-shrink:0}
+.al{display:flex;align-items:center;gap:7px;padding:5px 7px;border-radius:5px;font-size:10px}
+.al:nth-child(odd){background:rgba(255,255,255,.02)}
+.at{font-family:var(--mono);color:var(--text3);width:38px;flex-shrink:0}
+.atp{flex:1;color:var(--text2)}
+.asrc{font-family:var(--mono);font-size:9px;color:var(--text3);width:75px;text-align:right}
+.abadge{font-size:10px;padding:1px 6px;border-radius:20px;flex-shrink:0}
+.ab-bl{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.ab-mt{background:rgba(163,230,53,.1);color:#a3e635;border:1px solid rgba(163,230,53,.2)}
+.org{display:flex;align-items:center;gap:7px;padding:5px 7px;background:rgba(255,255,255,.02);border-radius:5px;margin-bottom:4px}
+.of{font-size:13px;width:18px;text-align:center;flex-shrink:0}
+.oc{font-size:11px;color:var(--text2);flex:1}
+.od{font-size:10px;color:var(--text3)}
+.obadge{font-size:10px;padding:1px 6px;border-radius:20px}
+.ob-r{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2)}
+.ob-o{background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.2)}
+.ob-g{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.ss-row{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.02);border-radius:6px;padding:6px 10px;margin-bottom:4px}
+.ss-shields{display:flex;gap:4px}
+.sh-tag{font-size:10px;padding:2px 6px;border-radius:20px}
+.sh-on{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.sh-off{background:var(--bg3);color:var(--text3);border:1px solid var(--border)}
+
+/* traffic */
+.chart-wrap{position:relative;height:120px;width:100%;margin-top:6px}
+.tab-r{display:flex;gap:1px;margin-bottom:10px;border-bottom:1px solid var(--border)}
+.tt{padding:5px 12px;font-size:11px;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tt.active{color:var(--blue);border-bottom-color:var(--blue)}
+.tsec{display:none}.tsec.active{display:block}
+.leg{display:flex;gap:10px;margin-bottom:5px}
+.li{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text3)}
+.ld{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.bhr{display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.bhl{font-size:10px;color:var(--text3);width:54px;flex-shrink:0;text-align:right}
+.bht{flex:1;height:13px;background:var(--bg);border-radius:3px;overflow:hidden}
+.bhf{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:5px;font-size:9px;color:#fff;white-space:nowrap}
+.bhv{font-size:10px;color:var(--text3);width:36px;text-align:right;flex-shrink:0}
+
+/* firewall */
+.frule{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.02);border-radius:6px;padding:7px 10px;margin-bottom:5px}
+.fn{font-size:12px;color:var(--text);flex:1}
+.fd{font-size:10px;color:var(--text3)}
+.ftog{width:30px;height:17px;border-radius:99px;cursor:pointer;position:relative;flex-shrink:0;border:1px solid;transition:background .15s}
+.ft-on{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.2)}
+.ft-on::after{content:'';position:absolute;right:2px;top:1.5px;width:11px;height:11px;background:var(--green);border-radius:50%}
+.ft-off{background:var(--bg3);border-color:var(--border2)}
+.ft-off::after{content:'';position:absolute;left:2px;top:1.5px;width:11px;height:11px;background:var(--text3);border-radius:50%}
+
+/* create server */
+.game-grid-sm{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:11px}
+.gcs{background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:10px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:border-color .15s}
+.gcs:hover,.gcs.sel{border-color:var(--blue);background:rgba(26,111,255,.05)}
+.gcs-ic{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.gcs-n{font-size:11px;font-weight:500;color:var(--text);margin-bottom:1px}
+.gcs-s{font-size:10px;color:var(--text3)}
+.gcs-a{font-size:10px;margin-top:1px}
+.ga-y{color:var(--green)}.ga-n{color:var(--red)}
+.form-g{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.fl label{font-size:10px;color:var(--text3);display:block;margin-bottom:3px}
+.fi{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:6px 9px;font-size:11px;color:var(--text);outline:none;font-family:var(--body)}
+.fi:focus{border-color:var(--blue)}
+.fi option{background:var(--bg)}
+
+/* pricing in panel */
+.plan-grid-sm{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:10px}
+.plan-sm{background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:13px;position:relative;display:flex;flex-direction:column}
+.plan-sm.featured{border:2px solid var(--blue);background:rgba(26,111,255,.04)}
+.plan-sm.ded{border:2px solid rgba(167,139,250,.35);background:rgba(167,139,250,.03)}
+.plan-rib{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:9px;padding:2px 10px;border-radius:20px;white-space:nowrap;font-weight:500}
+.plan-rib-ded{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#7c3aed,#a78bfa);color:#fff;font-size:9px;padding:2px 10px;border-radius:20px;white-space:nowrap;font-weight:500}
+.plan-ic{font-size:22px;margin-bottom:7px}
+.plan-nm{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text);margin-bottom:1px}
+.plan-tl{font-size:10px;color:var(--text3);margin-bottom:8px}
+.plan-orig{font-size:10px;color:var(--text3);text-decoration:line-through;min-height:13px}
+.plan-pr-row{display:flex;align-items:flex-end;gap:2px;margin-bottom:1px}
+.plan-pr{font-family:var(--display);font-size:26px;font-weight:700;color:var(--text);line-height:1}
+.plan-pr.free{color:var(--green)}
+.plan-pr.ded{font-size:20px;color:var(--purple)}
+.plan-cur{font-size:12px;color:var(--text3)}
+.plan-per{font-size:10px;color:var(--text3);margin-bottom:10px}
+.plan-chips-sm{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.pchip{display:flex;align-items:center;gap:5px;font-size:11px;padding:5px 8px;border-radius:6px;font-weight:500}
+.pchip i{font-size:13px;flex-shrink:0}
+.pc-ram{background:rgba(26,111,255,.08);color:#6aacff;border:1px solid rgba(26,111,255,.15)}
+.pc-cpu{background:rgba(34,197,94,.08);color:#6ee09b;border:1px solid rgba(34,197,94,.15)}
+.pc-ssd{background:rgba(245,158,11,.08);color:#fbbf24;border:1px solid rgba(245,158,11,.15)}
+.pc-ded{background:rgba(167,139,250,.08);color:var(--purple);border:1px solid rgba(167,139,250,.15)}
+.pdv{height:1px;background:var(--border);margin:8px 0}
+.plan-feat-sm{font-size:11px;color:var(--text3);padding:3px 0;display:flex;align-items:center;gap:5px;border-bottom:1px solid rgba(255,255,255,.03)}
+.plan-feat-sm:last-of-type{border-bottom:none}
+.pfs-ok{color:var(--green);font-size:12px;flex-shrink:0}
+.pfs-no{color:var(--border2);font-size:12px;flex-shrink:0}
+.pfs-s{color:var(--text2);font-weight:500}
+.pfs-g{color:var(--green);font-weight:500}
+.pfs-p{color:var(--purple);font-weight:500}
+.plan-sp{flex:1}
+.plan-btn-sm{width:100%;margin-top:10px;border-radius:6px;padding:7px;font-size:11px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-weight:500;font-family:var(--body);transition:all .12s}
+.plan-btn-sm:hover{background:var(--border);color:var(--text)}
+.plan-btn-sm.p{background:var(--blue);border-color:var(--blue);color:#fff}
+.plan-btn-sm.p:hover{background:var(--blue2)}
+.plan-btn-sm.cu{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.2);color:var(--green);cursor:default}
+.plan-btn-sm.d{background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.25);color:var(--purple)}
+.plan-btn-sm.d:hover{background:rgba(167,139,250,.15)}
+.billing-row{display:flex;align-items:center;justify-content:center;gap:8px;margin:8px 0 12px}
+.bt-label{font-size:11px;color:var(--text3)}
+.bt-label.a{color:var(--text)}
+.btsw{width:36px;height:19px;background:var(--bg3);border-radius:99px;cursor:pointer;position:relative;border:1px solid var(--border2)}
+.btsw::after{content:'';position:absolute;left:2px;top:2px;width:13px;height:13px;background:var(--blue);border-radius:50%;transition:left .2s}
+.btsw.on::after{left:19px}
+.save-tag{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2);font-size:10px;padding:2px 8px;border-radius:20px}
+.pay-strip{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:8px}
+.pay-it{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text3)}
+.pdivider{width:1px;height:14px;background:var(--border)}
+
+/* PRICING landing section */
+.pricing-sec{background:var(--bg)}
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:0}
+.lplan{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px;position:relative;display:flex;flex-direction:column;transition:border-color .2s}
+.lplan:hover{border-color:var(--border2)}
+.lplan.featured{border:2px solid var(--blue);background:rgba(26,111,255,.04)}
+.lplan.ded{border:2px solid rgba(167,139,250,.4);background:rgba(167,139,250,.03)}
+.lplan-rib{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:11px;padding:3px 14px;border-radius:20px;white-space:nowrap;font-weight:500}
+.lplan-rib-ded{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#7c3aed,#a78bfa);color:#fff;font-size:11px;padding:3px 14px;border-radius:20px;white-space:nowrap;font-weight:500}
+.lplan-ic{font-size:28px;margin-bottom:10px}
+.lplan-nm{font-family:var(--display);font-size:18px;font-weight:700;color:var(--text);margin-bottom:2px}
+.lplan-tl{font-size:11px;color:var(--text3);margin-bottom:12px}
+.lplan-orig{font-size:11px;color:var(--text3);text-decoration:line-through;min-height:16px}
+.lplan-pr-row{display:flex;align-items:flex-end;gap:2px;margin-bottom:2px}
+.lplan-pr{font-family:var(--display);font-size:36px;font-weight:700;color:var(--text);line-height:1}
+.lplan-pr.free{color:var(--green)}
+.lplan-pr.ded{font-size:26px;color:var(--purple)}
+.lplan-cur{font-size:15px;color:var(--text3);margin-bottom:4px}
+.lplan-per{font-size:11px;color:var(--text3);margin-bottom:12px}
+.lplan-chips{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.lchip{display:flex;align-items:center;gap:7px;font-size:12px;padding:6px 10px;border-radius:7px;font-weight:500}
+.lchip i{font-size:14px;flex-shrink:0}
+.lc-ram{background:rgba(26,111,255,.08);color:#6aacff;border:1px solid rgba(26,111,255,.15)}
+.lc-cpu{background:rgba(34,197,94,.08);color:#6ee09b;border:1px solid rgba(34,197,94,.15)}
+.lc-ssd{background:rgba(245,158,11,.08);color:#fbbf24;border:1px solid rgba(245,158,11,.15)}
+.lc-ded{background:rgba(167,139,250,.08);color:var(--purple);border:1px solid rgba(167,139,250,.15)}
+.ldv{height:1px;background:var(--border);margin:10px 0}
+.lplan-feat{font-size:12px;color:var(--text3);padding:4px 0;display:flex;align-items:center;gap:6px;border-bottom:1px solid rgba(255,255,255,.03)}
+.lplan-feat:last-of-type{border-bottom:none}
+.lpf-ok{color:var(--green);font-size:13px;flex-shrink:0}
+.lpf-no{color:var(--border2);font-size:13px;flex-shrink:0}
+.lpf-s{color:var(--text2);font-weight:500}
+.lpf-g{color:var(--green);font-weight:500}
+.lpf-p{color:var(--purple);font-weight:500}
+.lplan-sp{flex:1}
+.lplan-btn{width:100%;margin-top:14px;border-radius:8px;padding:10px;font-size:13px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-weight:500;font-family:var(--body);transition:all .15s}
+.lplan-btn:hover{background:var(--border);color:var(--text)}
+.lplan-btn.p{background:var(--blue);border-color:var(--blue);color:#fff}
+.lplan-btn.p:hover{background:var(--blue2)}
+.lplan-btn.cu{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.2);color:var(--green);cursor:default}
+.lplan-btn.d{background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.25);color:var(--purple)}
+.lplan-btn.d:hover{background:rgba(167,139,250,.15)}
+
+.billing-toggle{display:flex;align-items:center;justify-content:center;gap:10px;margin:16px 0 36px}
+.bt-l{font-size:13px;color:var(--text3)}
+.bt-l.active{color:var(--text)}
+.bt-switch{width:44px;height:24px;background:var(--bg3);border-radius:99px;cursor:pointer;position:relative;border:1px solid var(--border2)}
+.bt-switch::after{content:'';position:absolute;left:3px;top:3px;width:16px;height:16px;background:var(--blue);border-radius:50%;transition:left .2s}
+.bt-switch.on::after{left:23px}
+.save-badge{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2);font-size:11px;padding:3px 10px;border-radius:20px}
+.pay-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:28px;flex-wrap:wrap}
+.pay-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text3)}
+.pay-div{width:1px;height:18px;background:var(--border)}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 40px 30px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1160px;margin:0 auto 50px}
+.fbrand{font-family:var(--display);font-size:20px;font-weight:700;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.fbrand-box{width:26px;height:26px;background:var(--blue);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px}
+.fdesc{font-size:13px;color:var(--text3);line-height:1.7;margin-bottom:18px}
+.fpay{display:flex;gap:7px;flex-wrap:wrap}
+.fpay-b{background:var(--bg3);border:1px solid var(--border);border-radius:5px;padding:4px 10px;font-size:11px;color:var(--text3);display:flex;align-items:center;gap:4px}
+.fcol-t{font-size:12px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px}
+.flink{display:block;font-size:13px;color:var(--text3);text-decoration:none;margin-bottom:9px;transition:color .12s}
+.flink:hover{color:var(--text2)}
+.footer-bottom{max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding-top:22px;border-top:1px solid var(--border);font-size:12px;color:var(--text3);flex-wrap:wrap;gap:10px}
+.fstatus{display:flex;align-items:center;gap:6px}
+.fstatus-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+
+@media(max-width:900px){
+  nav{padding:0 20px}.nav-links{display:none}
+  section{padding:70px 20px}.panel-section{padding:70px 20px}
+  .hero{padding:100px 20px 60px}
+  .feat-grid{grid-template-columns:1fr 1fr}
+  .pricing-grid,.plan-grid-sm{grid-template-columns:1fr 1fr}
+  .sg{grid-template-columns:1fr 1fr}
+  .two{grid-template-columns:1fr}
+  .con-layout{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .panel-layout{grid-template-columns:1fr}
+  .panel-sidebar{display:none}
+}
+@media(max-width:600px){
+  .feat-grid,.pricing-grid,.plan-grid-sm,.sg{grid-template-columns:1fr}
+  .games-grid,.game-grid-sm{grid-template-columns:1fr 1fr}
+  .hero h1{font-size:42px}
+  .footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-box"><i class="ti ti-device-gamepad-2"></i></div>
+    JuriHosting.com
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="#features">Features</a>
+    <a class="nav-link" href="#games">Spiele</a>
+    <a class="nav-link" href="#dashboard">Dashboard</a>
+    <a class="nav-link" href="#ddos">DDoS-Schutz</a>
+    <a class="nav-link" href="#pricing">Preise</a>
+  </div>
+  <a class="nav-cta" href="#pricing">Jetzt starten</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-badge"><span class="badge-dot"></span>Server bereit in unter 60 Sekunden</div>
+  <h1>Game Servers.<br><span>Ohne Kompromisse.</span></h1>
+  <p class="hero-sub">Hosting für Minecraft, CS2, Valheim, Rust und mehr – mit automatischer Server-Erstellung, Cloudflare DDoS-Schutz und Live-Panel.</p>
+  <div class="hero-btns">
+    <a class="btn-primary" href="#pricing"><i class="ti ti-rocket"></i> Kostenlos starten</a>
+    <a class="btn-ghost" href="#dashboard"><i class="ti ti-layout-dashboard"></i> Dashboard ansehen</a>
+  </div>
+  <div class="hero-stats">
+    <div><div class="hstat-val green">99.9%</div><div class="hstat-label">Uptime SLA</div></div>
+    <div><div class="hstat-val">&lt;1s</div><div class="hstat-label">DDoS Mitigation</div></div>
+    <div><div class="hstat-val">9</div><div class="hstat-label">Unterstützte Spiele</div></div>
+    <div><div class="hstat-val">4</div><div class="hstat-label">EU-Regionen</div></div>
+  </div>
+</section>
+
+<!-- GAME STRIP -->
+<div class="games-strip">
+  <div class="gs-scroll">
+    <div class="gs-chip"><span>⛏</span>Minecraft Java</div><div class="gs-chip"><span>🟩</span>Minecraft Bedrock</div>
+    <div class="gs-chip"><span>🔫</span>Counter-Strike 2</div><div class="gs-chip"><span>🪓</span>Valheim</div>
+    <div class="gs-chip"><span>🏭</span>Rust</div><div class="gs-chip"><span>🐾</span>Palworld</div>
+    <div class="gs-chip"><span>🦕</span>ARK: Survival</div><div class="gs-chip"><span>🌿</span>Terraria</div>
+    <div class="gs-chip"><span>🧟</span>7 Days to Die</div>
+    <div class="gs-chip"><span>⛏</span>Minecraft Java</div><div class="gs-chip"><span>🟩</span>Minecraft Bedrock</div>
+    <div class="gs-chip"><span>🔫</span>Counter-Strike 2</div><div class="gs-chip"><span>🪓</span>Valheim</div>
+    <div class="gs-chip"><span>🏭</span>Rust</div><div class="gs-chip"><span>🐾</span>Palworld</div>
+    <div class="gs-chip"><span>🦕</span>ARK: Survival</div><div class="gs-chip"><span>🌿</span>Terraria</div>
+    <div class="gs-chip"><span>🧟</span>7 Days to Die</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="sec-label">Warum JuriHosting.com?</div>
+    <div class="sec-title">Alles was du brauchst,<br>nichts was du nicht brauchst.</div>
+    <div class="feat-grid">
+      <div class="feat-card"><div class="feat-icon fi-blue"><i class="ti ti-rocket"></i></div><div class="feat-title">Automatische Server-Erstellung</div><div class="feat-desc">Server bereit in unter 60 Sekunden. Kein technisches Wissen nötig – Spiel auswählen, Plan wählen, fertig.</div></div>
+      <div class="feat-card"><div class="feat-icon fi-green"><i class="ti ti-shield-check"></i></div><div class="feat-title">Cloudflare DDoS-Schutz</div><div class="feat-desc">Layer 3/4/7 Schutz mit bis zu 120 Tbps Kapazität. Angriffe werden in unter 1 Sekunde erkannt und gefiltert.</div></div>
+      <div class="feat-card"><div class="feat-icon fi-amber"><i class="ti ti-terminal-2"></i></div><div class="feat-title">Live-Konsole & Panel</div><div class="feat-desc">Vollständiger Zugriff auf deine Server-Konsole im Browser. Befehle senden, Logs lesen, Dateien verwalten.</div></div>
+      <div class="feat-card"><div class="feat-icon fi-purple"><i class="ti ti-device-hard-disk"></i></div><div class="feat-title">Automatische Backups</div><div class="feat-desc">Tägliche automatische Backups deiner Spielwelt. Wiederherstellung mit einem Klick – nie wieder Welt-Verlust.</div></div>
+      <div class="feat-card"><div class="feat-icon fi-red"><i class="ti ti-api"></i></div><div class="feat-title">REST API</div><div class="feat-desc">Vollständige API für Entwickler. Server starten, stoppen, Statistiken abrufen – alles programmatisch steuerbar.</div></div>
+      <div class="feat-card"><div class="feat-icon fi-cyan"><i class="ti ti-map-pin"></i></div><div class="feat-title">4 EU-Regionen</div><div class="feat-desc">Rechenzentren in Frankfurt, Nürnberg, Amsterdam und Helsinki. Minimale Latenz für europäische Spieler.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GAMES -->
+<section id="games" style="background:var(--bg2)">
+  <div class="container">
+    <div class="sec-label">Unterstützte Spiele</div>
+    <div class="sec-title">9 Spiele. Ein Dashboard.</div>
+    <div class="games-grid">
+      <div class="game-card"><div class="game-emoji g-mc">⛏</div><div><div class="gname">Minecraft Java</div><div class="gmeta">Paper · Fabric · Forge</div><span class="gbadge gb-free">Ab Dirt (Free)</span></div><i class="ti ti-chevron-right garrow"></i></div>
+      <div class="game-card"><div class="game-emoji g-mc">🟩</div><div><div class="gname">Minecraft Bedrock</div><div class="gmeta">Win · Mobile · Console</div><span class="gbadge gb-free">Ab Dirt (Free)</span></div><i class="ti ti-chevron-right garrow"></i></div>
+      <div class="game-card"><div class="game-emoji g-cs">🔫</div><div><div class="gname">Counter-Strike 2</div><div class="gmeta">Competitive · Casual</div><span class="gbadge gb-iron">Ab Iron (9,99€)</span></div><i class="ti ti-chevron-right garrow"></i></div>
+      <div class="game-card"><div class="game-emoji g-val">🪓</div><div><div class="gname">Valheim</div><div class="gmeta">Vanilla · BepInEx</div><span class="gbadge gb-iron">Ab Iron (9,99€)</span></div><i class="ti ti-chevron-right garrow"></i></div>
+      <div class="game-card"><div class="game-emoji g-rust">🏭</div><div><div class="gname">Rust</div><div class="gmeta">Vanilla · Oxide/uMod</div><span class="gbadge gb-iron">Ab Iron (9,99€)</span></div><i class="ti ti-chevron-right garrow"></i></div>
+      <div class="game-card"><div class="game-emoji g-ter">🌿</div><div><div class="gname">Terraria</div><div class="gmeta">Vanilla · tModLoader</div><span class="gbadge gb-free">Ab Dirt (Free)</span></div><i class="ti ti-chevron-right garrow"></i></div>
+      <div class="game-card"><div class="game-emoji g-pal">🐾</div><div><div class="gname">Palworld</div><div class="gmeta">Dedicated Server</div><span class="gbadge gb-dia">Ab Diamond (24,99€)</span></div><i class="ti ti-chevron-right garrow"></i></div>
+      <div class="game-card"><div class="game-emoji g-ark">🦕</div><div><div class="gname">ARK: Survival</div><div class="gmeta">ASE & ASA · Workshop</div><span class="gbadge gb-dia">Ab Diamond (24,99€)</span></div><i class="ti ti-chevron-right garrow"></i></div>
+      <div class="game-card"><div class="game-emoji g-7d">🧟</div><div><div class="gname">7 Days to Die</div><div class="gmeta">Vanilla · Overhaul Mods</div><span class="gbadge gb-iron">Ab Iron (9,99€)</span></div><i class="ti ti-chevron-right garrow"></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ DASHBOARD PANEL ══════ -->
+<section class="panel-section" id="dashboard">
+  <div class="container">
+    <div class="sec-label">Control Panel</div>
+    <div class="sec-title">Dein Dashboard.<br>Alles an einem Ort.</div>
+    <p class="sec-sub">Server verwalten, Konsole öffnen, DDoS-Logs checken, Traffic überwachen und Firewall-Regeln konfigurieren – direkt im Browser.</p>
+    <div class="panel-wrap">
+      <div class="panel-topbar">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="width:22px;height:22px;background:var(--blue);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px"><i class="ti ti-device-gamepad-2"></i></div>
+          <span style="font-family:var(--display);font-size:13px;font-weight:600;color:var(--text)">JuriHosting.com</span>
+        </div>
+        <div class="panel-nav">
+          <div class="pnl active" id="nl-dashboard" onclick="panelNav('dashboard',this)"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+          <div class="pnl" id="nl-servers" onclick="panelNav('servers',this)"><i class="ti ti-server"></i> Servers</div>
+          <div class="pnl" id="nl-create" onclick="panelNav('create',this)"><i class="ti ti-plus"></i> Erstellen</div>
+          <div class="pnl" id="nl-console" onclick="panelNav('console',this)"><i class="ti ti-terminal-2"></i> Konsole</div>
+          <div class="pnl" id="nl-ddos" onclick="panelNav('ddos',this)"><i class="ti ti-shield-check"></i> DDoS</div>
+          <div class="pnl" id="nl-traffic" onclick="panelNav('traffic',this)"><i class="ti ti-chart-bar"></i> Traffic</div>
+          <div class="pnl" id="nl-firewall" onclick="panelNav('firewall',this)"><i class="ti ti-wall"></i> Firewall</div>
+          <div class="pnl" id="nl-pricing" onclick="panelNav('pricing',this)"><i class="ti ti-credit-card"></i> Preise</div>
+        </div>
+        <div class="panel-right">
+          <span class="p-badge"><i class="ti ti-diamond" style="font-size:9px"></i> Iron</span>
+          <div class="p-av">MX</div>
+        </div>
+      </div>
+      <div class="panel-layout">
+        <div class="panel-sidebar">
+          <div class="psec">Hauptmenü</div>
+          <div class="psi active" id="si-dashboard" onclick="panelNav('dashboard',null)"><i class="ti ti-layout-dashboard"></i> Dashboard <span class="psi-dot"></span></div>
+          <div class="psi" id="si-servers" onclick="panelNav('servers',null)"><i class="ti ti-server"></i> My servers</div>
+          <div class="psi" id="si-create" onclick="panelNav('create',null)"><i class="ti ti-plus"></i> Server erstellen</div>
+          <div class="psi" id="si-console" onclick="panelNav('console',null)"><i class="ti ti-terminal-2"></i> Konsole</div>
+          <div class="psec">Sicherheit</div>
+          <div class="psi" id="si-ddos" onclick="panelNav('ddos',null)"><i class="ti ti-shield-check"></i> DDoS protection</div>
+          <div class="psi" id="si-traffic" onclick="panelNav('traffic',null)"><i class="ti ti-chart-bar"></i> Traffic stats</div>
+          <div class="psi" id="si-firewall" onclick="panelNav('firewall',null)"><i class="ti ti-wall"></i> Firewall</div>
+          <div class="psec">Billing</div>
+          <div class="psi" id="si-pricing" onclick="panelNav('pricing',null)"><i class="ti ti-credit-card"></i> Pläne & Preise</div>
+          <div class="psi"><i class="ti ti-receipt"></i> Rechnungen</div>
+          <div class="psec">Support</div>
+          <div class="psi"><i class="ti ti-brand-discord"></i> Discord</div>
+          <div class="psi"><i class="ti ti-book"></i> Docs</div>
+          <div class="ps-spacer"></div>
+          <div class="ps-user"><div class="ps-uname">MaxMuster</div><div class="ps-uplan">Iron Plan · 4 Server</div></div>
+        </div>
+        <div class="panel-main">
+
+          <!-- DASHBOARD PAGE -->
+          <div class="pg active" id="pg-dashboard">
+            <div class="ph"><span class="pt">Dashboard</span><button class="p-btn pb-primary" onclick="panelNav('create',null)"><i class="ti ti-plus" style="font-size:11px"></i> Neuer Server</button></div>
+            <div class="sg">
+              <div class="sc"><div class="sl"><i class="ti ti-server"></i>Server</div><div class="sv">4</div><div class="ss ok">3 online</div></div>
+              <div class="sc"><div class="sl"><i class="ti ti-users"></i>Spieler</div><div class="sv">23</div><div class="ss">von 80</div></div>
+              <div class="sc"><div class="sl"><i class="ti ti-shield-check"></i>DDoS blocked</div><div class="sv" id="dash-bc">1.284</div><div class="ss ok">heute</div></div>
+              <div class="sc"><div class="sl"><i class="ti ti-cpu"></i>CPU</div><div class="sv">42%</div><div class="ss">12 vCPU</div></div>
+            </div>
+            <div class="two">
+              <div class="pcard">
+                <div class="pct"><i class="ti ti-server"></i> Server status</div>
+                <div class="prow"><span class="dot don"></span><div style="flex:1"><div style="font-size:11px;color:var(--text)">Survival SMP</div><div style="font-size:10px;color:var(--text3)">Minecraft Java · Frankfurt</div></div><span class="pbadge pb-on">Online</span><span class="pbadge pb-blue" style="margin-left:3px">14/40</span></div>
+                <div class="prow"><span class="dot don"></span><div style="flex:1"><div style="font-size:11px;color:var(--text)">CS2 Competitive</div><div style="font-size:10px;color:var(--text3)">Counter-Strike 2 · Frankfurt</div></div><span class="pbadge pb-on">Online</span><span class="pbadge pb-blue" style="margin-left:3px">9/12</span></div>
+                <div class="prow"><span class="dot dwa"></span><div style="flex:1"><div style="font-size:11px;color:var(--text)">Valheim World</div><div style="font-size:10px;color:var(--text3)">Valheim · Nürnberg</div></div><span class="pbadge pb-warn">High CPU</span></div>
+                <div class="prow"><span class="dot dof"></span><div style="flex:1"><div style="font-size:11px;color:var(--text)">Rust Server</div><div style="font-size:10px;color:var(--text3)">Rust · Amsterdam</div></div><span class="pbadge pb-off">Offline</span></div>
+              </div>
+              <div class="pcard">
+                <div class="pct"><i class="ti ti-chart-bar"></i> Ressourcen</div>
+                <div class="bw"><div class="bl"><span>CPU</span><span>42%</span></div><div class="bt"><div class="bf bf-a" style="width:42%"></div></div></div>
+                <div class="bw"><div class="bl"><span>RAM</span><span>68%</span></div><div class="bt"><div class="bf bf-b" style="width:68%"></div></div></div>
+                <div class="bw"><div class="bl"><span>Disk</span><span>31%</span></div><div class="bt"><div class="bf bf-g" style="width:31%"></div></div></div>
+                <div class="bw"><div class="bl"><span>Netzwerk</span><span>18%</span></div><div class="bt"><div class="bf bf-b" style="width:18%"></div></div></div>
+                <div style="margin-top:8px;display:flex;align-items:center;gap:5px;font-size:11px;color:var(--green)"><span class="pulse-dot"></span>DDoS-Schutz aktiv · kein Angriff</div>
+              </div>
+            </div>
+            <div class="pcard">
+              <div class="pct"><i class="ti ti-activity"></i> Live-Angriffs-Log</div>
+              <div id="dash-alog">
+                <div class="al"><span class="at">12:41</span><span class="atp">UDP flood · 2.1 Gbps</span><span class="asrc">CN · 103.x</span><span class="abadge ab-bl">Blocked</span></div>
+                <div class="al"><span class="at">12:38</span><span class="atp">SYN flood · 840k pps</span><span class="asrc">RU · 185.x</span><span class="abadge ab-bl">Blocked</span></div>
+                <div class="al"><span class="at">12:35</span><span class="atp">ICMP flood · 500 Mbps</span><span class="asrc">BR · 177.x</span><span class="abadge ab-mt">Mitigated</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SERVERS PAGE -->
+          <div class="pg" id="pg-servers">
+            <div class="ph"><span class="pt">My servers</span><button class="p-btn pb-primary" onclick="panelNav('create',null)"><i class="ti ti-plus" style="font-size:11px"></i> Neuer Server</button></div>
+            <div class="sg">
+              <div class="sc"><div class="sl"><i class="ti ti-server"></i>Gesamt</div><div class="sv">4</div><div class="ss">3 online</div></div>
+              <div class="sc"><div class="sl"><i class="ti ti-users"></i>Spieler</div><div class="sv">23</div><div class="ss">von 80</div></div>
+              <div class="sc"><div class="sl"><i class="ti ti-cpu"></i>CPU avg</div><div class="sv" id="srv-cpu">42%</div><div class="ss warn">mittel</div></div>
+              <div class="sc"><div class="sl"><i class="ti ti-database"></i>RAM</div><div class="sv">11 GB</div><div class="ss">von 28 GB</div></div>
+            </div>
+            <div class="srv-list">
+              <div class="srv" onclick="panelNav('console',null)">
+                <span class="dot don"></span><div class="gi g-mc">⛏</div>
+                <div class="sinfo"><div class="sname">Survival SMP</div><div class="smeta">Paper 1.21.4 · Frankfurt · :25565</div></div>
+                <div class="sres"><div class="rl"><span>CPU</span><span>42%</span></div><div class="rt"><div class="rf bf-a" style="width:42%"></div></div><div class="rl"><span>RAM</span><span>3.1 GB</span></div><div class="rt"><div class="rf bf-b" style="width:78%"></div></div></div>
+                <span class="pbadge pb-on">Online</span><span class="pbadge pb-blue" style="margin-left:3px">14/40</span>
+                <i class="ti ti-chevron-right sarrow"></i>
+              </div>
+              <div class="srv">
+                <span class="dot don"></span><div class="gi g-cs">🔫</div>
+                <div class="sinfo"><div class="sname">CS2 Competitive</div><div class="smeta">Counter-Strike 2 · Frankfurt · :27015</div></div>
+                <div class="sres"><div class="rl"><span>CPU</span><span>61%</span></div><div class="rt"><div class="rf bf-a" style="width:61%"></div></div><div class="rl"><span>RAM</span><span>5.8 GB</span></div><div class="rt"><div class="rf bf-b" style="width:73%"></div></div></div>
+                <span class="pbadge pb-on">Online</span><span class="pbadge pb-blue" style="margin-left:3px">9/12</span>
+                <i class="ti ti-chevron-right sarrow"></i>
+              </div>
+              <div class="srv">
+                <span class="dot dwa"></span><div class="gi g-val">🪓</div>
+                <div class="sinfo"><div class="sname">Valheim World</div><div class="smeta">Valheim · Nürnberg · :2456</div></div>
+                <div class="sres"><div class="rl"><span>CPU</span><span>88%</span></div><div class="rt"><div class="rf bf-r" style="width:88%"></div></div><div class="rl"><span>RAM</span><span>1.9 GB</span></div><div class="rt"><div class="rf bf-a" style="width:48%"></div></div></div>
+                <span class="pbadge pb-warn">High CPU</span><span class="pbadge pb-blue" style="margin-left:3px">3/10</span>
+                <i class="ti ti-chevron-right sarrow"></i>
+              </div>
+              <div class="srv">
+                <span class="dot dof"></span><div class="gi g-rust">🏭</div>
+                <div class="sinfo"><div class="sname">Rust Server</div><div class="smeta">Rust · Amsterdam · :28015</div></div>
+                <div class="sres"><div class="rl"><span>CPU</span><span>—</span></div><div class="rt"><div class="rf bf-b" style="width:0%"></div></div><div class="rl"><span>RAM</span><span>—</span></div><div class="rt"><div class="rf bf-g" style="width:0%"></div></div></div>
+                <span class="pbadge pb-off">Offline</span><span class="pbadge pb-gray" style="margin-left:3px">0/50</span>
+                <i class="ti ti-chevron-right sarrow"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- CREATE PAGE -->
+          <div class="pg" id="pg-create">
+            <div class="ph"><span class="pt">Server erstellen</span></div>
+            <div class="game-grid-sm">
+              <div class="gcs sel" onclick="selGame(this,'Minecraft Java','Paper 1.21.4')"><div class="gcs-ic g-mc">⛏</div><div><div class="gcs-n">Minecraft Java</div><div class="gcs-s">Paper · Fabric · Forge</div><div class="gcs-a ga-y">Iron+ verfügbar</div></div></div>
+              <div class="gcs" onclick="selGame(this,'Minecraft Bedrock','Bedrock latest')"><div class="gcs-ic g-mc">🟩</div><div><div class="gcs-n">Minecraft Bedrock</div><div class="gcs-s">Win · Mobile · Console</div><div class="gcs-a ga-y">Iron+ verfügbar</div></div></div>
+              <div class="gcs" onclick="selGame(this,'Counter-Strike 2','CS2 Dedicated')"><div class="gcs-ic g-cs">🔫</div><div><div class="gcs-n">Counter-Strike 2</div><div class="gcs-s">Competitive · Casual</div><div class="gcs-a ga-y">Iron+ verfügbar</div></div></div>
+              <div class="gcs" onclick="selGame(this,'Valheim','Valheim latest')"><div class="gcs-ic g-val">🪓</div><div><div class="gcs-n">Valheim</div><div class="gcs-s">Vanilla · BepInEx</div><div class="gcs-a ga-y">Iron+ verfügbar</div></div></div>
+              <div class="gcs" onclick="selGame(this,'Rust','Rust + Oxide')"><div class="gcs-ic g-rust">🏭</div><div><div class="gcs-n">Rust</div><div class="gcs-s">Vanilla · Oxide/uMod</div><div class="gcs-a ga-y">Iron+ verfügbar</div></div></div>
+              <div class="gcs" onclick="selGame(this,'Terraria','Vanilla / tModLoader')"><div class="gcs-ic g-ter">🌿</div><div><div class="gcs-n">Terraria</div><div class="gcs-s">Vanilla · tModLoader</div><div class="gcs-a ga-y">Ab Dirt (Free)</div></div></div>
+              <div class="gcs" onclick="selGame(this,'Palworld','Palworld Dedicated')"><div class="gcs-ic g-pal">🐾</div><div><div class="gcs-n">Palworld</div><div class="gcs-s">Dedicated server</div><div class="gcs-a ga-n">Diamond+ nötig</div></div></div>
+              <div class="gcs" onclick="selGame(this,'ARK: Survival','ASA latest')"><div class="gcs-ic g-ark">🦕</div><div><div class="gcs-n">ARK: Survival</div><div class="gcs-s">ASE &amp; ASA</div><div class="gcs-a ga-n">Diamond+ nötig</div></div></div>
+              <div class="gcs" onclick="selGame(this,'7 Days to Die','7DTD Dedicated')"><div class="gcs-ic g-7d">🧟</div><div><div class="gcs-n">7 Days to Die</div><div class="gcs-s">Vanilla · Overhaul</div><div class="gcs-a ga-y">Iron+ verfügbar</div></div></div>
+            </div>
+            <div class="pcard">
+              <div class="pct"><i class="ti ti-device-gamepad-2"></i> <span id="create-title">Minecraft Java – konfigurieren</span></div>
+              <div class="form-g">
+                <div class="fl"><label>Server-Name</label><input class="fi" type="text" value="My SMP" /></div>
+                <div class="fl"><label>Version</label><select class="fi" id="create-ver"><option>Paper 1.21.4 (empfohlen)</option><option>Vanilla 1.21.4</option><option>Fabric 1.21.4</option><option>Forge 1.20.1</option></select></div>
+                <div class="fl"><label>Max. Spieler</label><select class="fi"><option>10</option><option selected>20</option><option>40</option><option>80</option></select></div>
+                <div class="fl"><label>Region</label><select class="fi"><option>Frankfurt, DE</option><option>Nürnberg, DE</option><option>Amsterdam, NL</option><option>Helsinki, FI</option></select></div>
+              </div>
+              <button class="p-btn pb-primary"><i class="ti ti-rocket" style="font-size:11px"></i> Jetzt erstellen</button>
+            </div>
+          </div>
+
+          <!-- CONSOLE PAGE -->
+          <div class="pg" id="pg-console">
+            <div class="ph">
+              <div style="display:flex;align-items:center;gap:7px"><span class="dot don"></span><span class="pt">Survival SMP</span><span class="pbadge pb-on" style="margin-left:3px">Online</span><span class="pbadge pb-blue">14/40</span></div>
+              <div style="display:flex;gap:5px">
+                <button class="p-btn pb-green"><i class="ti ti-player-play" style="font-size:10px"></i> Start</button>
+                <button class="p-btn pb-ghost"><i class="ti ti-refresh" style="font-size:10px"></i> Restart</button>
+                <button class="p-btn pb-red"><i class="ti ti-flame" style="font-size:10px"></i> Kill</button>
+              </div>
+            </div>
+            <div class="con-layout">
+              <div>
+                <div class="con-box" id="con-box">
+                  <span class="cl" style="color:#2e3a55">[12:34:08] [INFO]: Loading libraries...</span>
+                  <span class="cl" style="color:#2e3a55">[12:34:10] [INFO]: Preparing level "world"</span>
+                  <span class="cl c-ok">[12:34:14] [INFO]: Done (4.821s)! For help, type "help"</span>
+                  <span class="cl c-acc">[12:34:22] [INFO]: Steve[/91.x.x.x] logged in</span>
+                  <span class="cl c-acc">[12:35:09] [INFO]: Alex[/77.x.x.x] logged in</span>
+                  <span class="cl" style="color:#3a4a6a">[12:36:44] [INFO]: &lt;Steve&gt; Hallo!</span>
+                  <span class="cl c-warn">[12:39:44] [WARN]: Server has not responded for 12s</span>
+                  <span class="cl c-ok">[12:39:57] [INFO]: Server recovered</span>
+                  <span class="cl c-sys" id="con-caret">[JuriHosting]: Server is online. ▌</span>
+                </div>
+                <div class="cmd-bar">
+                  <span class="cmd-p">&gt;_</span>
+                  <input class="cmd-i" id="con-input" placeholder="Befehl eingeben..." />
+                  <button class="cmd-s" onclick="conSend()">Senden</button>
+                </div>
+                <div class="res3">
+                  <div class="r3"><div class="r3h"><span class="r3t"><i class="ti ti-cpu"></i>CPU</span><span class="r3v" id="con-cpu">2.1%</span></div><div style="font-size:9px;color:var(--text3);margin-bottom:3px">von 9900%</div><div class="r3b"><div class="r3f bf-b" id="con-cpub" style="width:2%"></div></div></div>
+                  <div class="r3"><div class="r3h"><span class="r3t"><i class="ti ti-database"></i>RAM</span><span class="r3v" id="con-ram">0.92 GB</span></div><div style="font-size:9px;color:var(--text3);margin-bottom:3px">von 16 GB</div><div class="r3b"><div class="r3f bf-g" id="con-ramb" style="width:6%"></div></div></div>
+                  <div class="r3"><div class="r3h"><span class="r3t"><i class="ti ti-device-hard-disk"></i>Disk</span><span class="r3v">0.57 GB</span></div><div style="font-size:9px;color:var(--text3);margin-bottom:3px">von 150 GB</div><div class="r3b"><div class="r3f bf-a" style="width:0.4%"></div></div></div>
+                </div>
+              </div>
+              <div>
+                <div class="inf"><div class="il"><i class="ti ti-clock"></i>Uptime</div><div class="iv" id="con-upt">04:12:33</div></div>
+                <div class="inf"><div class="il"><i class="ti ti-network"></i>Server IP</div><div class="iv" style="font-size:10px;font-family:var(--mono)">survival.jurihosting.de</div><div class="is">Port: 25565</div></div>
+                <div class="inf"><div class="il"><i class="ti ti-server"></i>Node</div><div class="iv">DE-Frankfurt</div><div class="is">Ryzen 9 7950X</div></div>
+                <div class="inf"><div class="il"><i class="ti ti-users"></i>Players</div><div class="iv">14 / 40</div></div>
+                <div class="inf"><div class="il"><i class="ti ti-tag"></i>Version</div><div class="iv">Paper 1.21.4</div><div class="is ok" style="font-size:10px">Up to date</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DDOS PAGE -->
+          <div class="pg" id="pg-ddos">
+            <div class="ph"><span class="pt">DDoS Protection</span><div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--green)"><span class="pulse-dot"></span>Live monitoring</div></div>
+            <div class="shield-banner">
+              <div class="sh-icon"><i class="ti ti-shield-check"></i></div>
+              <div><div class="sh-t">DDoS protection active – alle Server geschützt</div><div class="sh-s">Cloudflare Magic Transit + L3/L4/L7 · &lt;1s mitigation</div></div>
+            </div>
+            <div class="sg">
+              <div class="sc"><div class="sl"><i class="ti ti-shield" style="color:var(--green)"></i>Blocked heute</div><div class="sv" id="ddos-bc">1.284</div><div class="ss ok">Angriffe gestoppt</div></div>
+              <div class="sc"><div class="sl"><i class="ti ti-bolt" style="color:var(--blue)"></i>Peak attack</div><div class="sv">18.4 Gbps</div><div class="ss info">größter heute</div></div>
+              <div class="sc"><div class="sl"><i class="ti ti-clock" style="color:var(--amber)"></i>Response</div><div class="sv">&lt;1s</div><div class="ss ok">avg mitigation</div></div>
+              <div class="sc"><div class="sl"><i class="ti ti-network" style="color:var(--green)"></i>Kapazität</div><div class="sv">120 Tbps</div><div class="ss">Cloudflare</div></div>
+            </div>
+            <div class="two">
+              <div class="pcard">
+                <div class="pct"><i class="ti ti-activity"></i> Live attack log</div>
+                <div id="ddos-log">
+                  <div class="al"><span class="at">12:41</span><span class="atp">UDP flood · 2.1 Gbps</span><span class="asrc">CN · 103.x</span><span class="abadge ab-bl">Blocked</span></div>
+                  <div class="al"><span class="at">12:38</span><span class="atp">SYN flood · 840k pps</span><span class="asrc">RU · 185.x</span><span class="abadge ab-bl">Blocked</span></div>
+                  <div class="al"><span class="at">12:35</span><span class="atp">ICMP flood · 500 Mbps</span><span class="asrc">BR · 177.x</span><span class="abadge ab-mt">Mitigated</span></div>
+                  <div class="al"><span class="at">12:29</span><span class="atp">TCP ACK flood</span><span class="asrc">US · 23.x</span><span class="abadge ab-bl">Blocked</span></div>
+                </div>
+              </div>
+              <div class="pcard">
+                <div class="pct"><i class="ti ti-map-pin"></i> Top attack origins</div>
+                <div class="org"><span class="of">🇨🇳</span><div><div class="oc">China</div><div class="od">412 attacks · UDP flood</div></div><span class="obadge ob-r">High</span></div>
+                <div class="org"><span class="of">🇷🇺</span><div><div class="oc">Russia</div><div class="od">298 attacks · SYN flood</div></div><span class="obadge ob-r">High</span></div>
+                <div class="org"><span class="of">🇧🇷</span><div><div class="oc">Brazil</div><div class="od">144 attacks · ICMP</div></div><span class="obadge ob-o">Med</span></div>
+                <div class="org"><span class="of">🇺🇸</span><div><div class="oc">United States</div><div class="od">89 attacks · amp</div></div><span class="obadge ob-g">Low</span></div>
+              </div>
+            </div>
+            <div class="pcard">
+              <div class="pct"><i class="ti ti-server"></i> Per-server shield status</div>
+              <div class="ss-row"><span class="dot don"></span><span style="font-size:11px;color:var(--text);flex:1">Survival SMP</span><span style="font-size:10px;color:var(--text3);flex:1">Minecraft Java · :25565</span><div class="ss-shields"><span class="sh-tag sh-on">L3/L4</span><span class="sh-tag sh-on">L7</span><span class="sh-tag sh-on">UDP</span></div></div>
+              <div class="ss-row"><span class="dot don"></span><span style="font-size:11px;color:var(--text);flex:1">CS2 Competitive</span><span style="font-size:10px;color:var(--text3);flex:1">CS2 · :27015</span><div class="ss-shields"><span class="sh-tag sh-on">L3/L4</span><span class="sh-tag sh-on">L7</span><span class="sh-tag sh-on">UDP</span></div></div>
+              <div class="ss-row"><span class="dot dwa"></span><span style="font-size:11px;color:var(--text);flex:1">Valheim World</span><span style="font-size:10px;color:var(--text3);flex:1">Valheim · :2456</span><div class="ss-shields"><span class="sh-tag sh-on">L3/L4</span><span class="sh-tag sh-off">L7</span><span class="sh-tag sh-on">UDP</span></div></div>
+              <div class="ss-row"><span class="dot dof"></span><span style="font-size:11px;color:var(--text);flex:1">Rust Server</span><span style="font-size:10px;color:var(--text3);flex:1">Rust · :28015</span><div class="ss-shields"><span class="sh-tag sh-on">L3/L4</span><span class="sh-tag sh-off">L7</span><span class="sh-tag sh-on">UDP</span></div></div>
+            </div>
+          </div>
+
+          <!-- TRAFFIC PAGE -->
+          <div class="pg" id="pg-traffic">
+            <div class="ph"><span class="pt">Traffic statistics</span></div>
+            <div class="sg">
+              <div class="sc"><div class="sl"><i class="ti ti-arrow-down"></i>Inbound</div><div class="sv">4.2 TB</div><div class="ss info">heute</div></div>
+              <div class="sc"><div class="sl"><i class="ti ti-arrow-up"></i>Outbound</div><div class="sv">1.8 TB</div><div class="ss info">heute</div></div>
+              <div class="sc"><div class="sl"><i class="ti ti-shield"></i>Gefiltert</div><div class="sv">890 GB</div><div class="ss danger">Attack-Traffic</div></div>
+              <div class="sc"><div class="sl"><i class="ti ti-bolt"></i>Peak</div><div class="sv">22 Gbps</div><div class="ss warn">heute 04:12</div></div>
+            </div>
+            <div class="tab-r">
+              <div class="tt active" onclick="showTT('t24h',this)">Last 24h</div>
+              <div class="tt" onclick="showTT('t7d',this)">7 Tage</div>
+              <div class="tt" onclick="showTT('tproto',this)">Protokoll</div>
+              <div class="tt" onclick="showTT('tsrv',this)">Per Server</div>
+            </div>
+            <div class="tsec active" id="tt-t24h">
+              <div class="two">
+                <div class="pcard"><div class="pct"><i class="ti ti-chart-line"></i> Bandwidth (Gbps) – 24h</div><div class="leg"><div class="li"><span class="ld" style="background:var(--blue)"></span>Clean</div><div class="li"><span class="ld" style="background:var(--red)"></span>Attack</div></div><div class="chart-wrap"><canvas id="c24h"></canvas></div></div>
+                <div class="pcard"><div class="pct"><i class="ti ti-chart-bar"></i> Packets/sec – 24h</div><div class="leg"><div class="li"><span class="ld" style="background:var(--green)"></span>Passed</div><div class="li"><span class="ld" style="background:var(--amber)"></span>Dropped</div></div><div class="chart-wrap"><canvas id="cpps"></canvas></div></div>
+              </div>
+            </div>
+            <div class="tsec" id="tt-t7d">
+              <div class="pcard"><div class="pct"><i class="ti ti-calendar"></i> Daily traffic – 7 Tage (TB)</div><div class="chart-wrap" style="height:130px"><canvas id="c7d"></canvas></div></div>
+            </div>
+            <div class="tsec" id="tt-tproto">
+              <div class="two">
+                <div class="pcard"><div class="pct"><i class="ti ti-network"></i> Nach Protokoll</div>
+                  <div class="bhr"><span class="bhl">UDP</span><div class="bht"><div class="bhf" style="width:68%;background:var(--blue)">68%</div></div><span class="bhv">2.86 TB</span></div>
+                  <div class="bhr"><span class="bhl">TCP</span><div class="bht"><div class="bhf" style="width:24%;background:var(--green)">24%</div></div><span class="bhv">1.01 TB</span></div>
+                  <div class="bhr"><span class="bhl">ICMP</span><div class="bht"><div class="bhf" style="width:5%;background:var(--amber);color:#000">5%</div></div><span class="bhv">210 GB</span></div>
+                </div>
+                <div class="pcard"><div class="pct"><i class="ti ti-ban"></i> Attack-Typen</div>
+                  <div class="bhr"><span class="bhl">UDP flood</span><div class="bht"><div class="bhf" style="width:51%;background:var(--red)">51%</div></div><span class="bhv">454 GB</span></div>
+                  <div class="bhr"><span class="bhl">SYN flood</span><div class="bht"><div class="bhf" style="width:26%;background:var(--amber);color:#000">26%</div></div><span class="bhv">231 GB</span></div>
+                  <div class="bhr"><span class="bhl">DNS amp</span><div class="bht"><div class="bhf" style="width:13%;background:var(--red)">13%</div></div><span class="bhv">116 GB</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="tsec" id="tt-tsrv">
+              <div class="pcard"><div class="pct"><i class="ti ti-server"></i> Traffic per server heute</div>
+                <div class="bhr"><span class="bhl">Survival SMP</span><div class="bht"><div class="bhf" style="width:55%;background:var(--blue)">1.8 TB</div></div></div>
+                <div style="margin-bottom:5px"></div>
+                <div class="bhr"><span class="bhl">CS2 Server</span><div class="bht"><div class="bhf" style="width:36%;background:var(--green)">1.2 TB</div></div></div>
+                <div style="margin-bottom:5px"></div>
+                <div class="bhr"><span class="bhl">Valheim</span><div class="bht"><div class="bhf" style="width:18%;background:var(--amber);color:#000">580 GB</div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FIREWALL PAGE -->
+          <div class="pg" id="pg-firewall">
+            <div class="ph"><span class="pt">Firewall rules</span></div>
+            <div class="pcard">
+              <div class="pct"><i class="ti ti-wall"></i> Active rules</div>
+              <div class="frule"><div><div class="fn">Block NULL packets</div><div class="fd">Drop packets with no flags set</div></div><span class="ftog ft-on"></span></div>
+              <div class="frule"><div><div class="fn">SYN flood protection</div><div class="fd">Rate limit: 500 SYN/s per IP</div></div><span class="ftog ft-on"></span></div>
+              <div class="frule"><div><div class="fn">UDP rate limiting</div><div class="fd">Max 10k pps per source IP</div></div><span class="ftog ft-on"></span></div>
+              <div class="frule"><div><div class="fn">GeoIP block: high-risk</div><div class="fd">Block known botnet regions</div></div><span class="ftog ft-on"></span></div>
+              <div class="frule"><div><div class="fn">Port scan detection</div><div class="fd">Auto-ban after 20 ports/10s</div></div><span class="ftog ft-on"></span></div>
+              <div class="frule"><div><div class="fn">Amplification filter</div><div class="fd">Block DNS/NTP/SSDP reflection</div></div><span class="ftog ft-on"></span></div>
+              <div class="frule"><div><div class="fn">Allowlist only mode</div><div class="fd">Block all IPs not on allowlist</div></div><span class="ftog ft-off" onclick="this.classList.toggle('ft-on');this.classList.toggle('ft-off')"></span></div>
+              <div class="frule"><div><div class="fn">VPN/proxy block</div><div class="fd">Block known proxy exit nodes</div></div><span class="ftog ft-off" onclick="this.classList.toggle('ft-on');this.classList.toggle('ft-off')"></span></div>
+            </div>
+            <div class="pcard">
+              <div class="pct"><i class="ti ti-shield"></i> Protection layers</div>
+              <div class="bw"><div class="bl"><span>Layer 3 – Network</span><span class="ok">Active</span></div><div class="bt"><div class="bf bf-g" style="width:100%"></div></div></div>
+              <div class="bw"><div class="bl"><span>Layer 4 – TCP/UDP</span><span class="ok">Active</span></div><div class="bt"><div class="bf bf-g" style="width:100%"></div></div></div>
+              <div class="bw"><div class="bl"><span>Layer 7 – Application</span><span class="ok">Active</span></div><div class="bt"><div class="bf bf-g" style="width:100%"></div></div></div>
+              <div class="bw"><div class="bl"><span>Anycast capacity</span><span class="info">~120 Tbps</span></div><div class="bt"><div class="bf bf-b" style="width:80%"></div></div></div>
+            </div>
+          </div>
+
+          <!-- PRICING PAGE (in panel) -->
+          <div class="pg" id="pg-pricing">
+            <div class="ph" style="flex-direction:column;align-items:center;text-align:center;margin-bottom:6px"><span class="pt" style="font-size:16px">Pläne &amp; Preise</span><div style="font-size:11px;color:var(--text3);margin-top:3px">Alle Ressourcen dediziert · Jederzeit kündbar</div></div>
+            <div class="billing-row">
+              <span class="bt-label a" id="p-lbl-mo">Monatlich</span>
+              <div class="btsw" id="p-sw" onclick="togglePanelBilling()"></div>
+              <span class="bt-label" id="p-lbl-yr">Jährlich</span>
+              <span class="save-tag">2 Monate gratis</span>
+            </div>
+            <div class="plan-grid-sm">
+              <div class="plan-sm">
+                <div class="plan-ic">🪨</div><div class="plan-nm">Dirt</div><div class="plan-tl">Kostenlos für immer</div>
+                <div class="plan-orig"></div>
+                <div class="plan-pr-row"><span class="plan-pr free">0</span><span class="plan-cur">€</span></div>
+                <div class="plan-per">kostenlos</div>
+                <div class="plan-chips-sm">
+                  <div class="pchip pc-ram"><i class="ti ti-database"></i>4 GB RAM</div>
+                  <div class="pchip pc-cpu"><i class="ti ti-cpu"></i>2 vCPU</div>
+                  <div class="pchip pc-ssd"><i class="ti ti-device-hard-disk"></i>25 GB SSD</div>
+                </div>
+                <div class="pdv"></div>
+                <div class="plan-feat-sm"><span class="pfs-ok">✓</span>1 Server · 20 Spieler</div>
+                <div class="plan-feat-sm"><span class="pfs-ok">✓</span>Minecraft &amp; Terraria</div>
+                <div class="plan-feat-sm"><span class="pfs-no">✗</span><span style="color:var(--border2)">DDoS · Backups</span></div>
+                <div class="plan-sp"></div>
+                <button class="plan-btn-sm cu">Aktuell</button>
+              </div>
+              <div class="plan-sm featured">
+                <div class="plan-rib">⭐ Beliebt</div>
+                <div class="plan-ic">⚙️</div><div class="plan-nm">Iron</div><div class="plan-tl">Für SMPs</div>
+                <div class="plan-orig" id="pp-orig-i"></div>
+                <div class="plan-pr-row"><span class="plan-pr" id="pp-pr-i">9</span><span class="plan-cur">,99 €</span></div>
+                <div class="plan-per" id="pp-pe-i">pro Monat</div>
+                <div class="plan-chips-sm">
+                  <div class="pchip pc-ram"><i class="ti ti-database"></i>16 GB RAM</div>
+                  <div class="pchip pc-cpu"><i class="ti ti-cpu"></i>6 vCPU</div>
+                  <div class="pchip pc-ssd"><i class="ti ti-device-hard-disk"></i>150 GB SSD</div>
+                </div>
+                <div class="pdv"></div>
+                <div class="plan-feat-sm"><span class="pfs-ok">✓</span>5 Server · 80 Spieler</div>
+                <div class="plan-feat-sm"><span class="pfs-ok">✓</span><span class="pfs-g">DDoS L3/L4</span></div>
+                <div class="plan-feat-sm"><span class="pfs-ok">✓</span>5 Backups/Tag</div>
+                <div class="plan-sp"></div>
+                <button class="plan-btn-sm p">Upgraden</button>
+              </div>
+              <div class="plan-sm">
+                <div class="plan-ic">💎</div><div class="plan-nm">Diamond</div><div class="plan-tl">Community</div>
+                <div class="plan-orig" id="pp-orig-dia"></div>
+                <div class="plan-pr-row"><span class="plan-pr" id="pp-pr-dia">24</span><span class="plan-cur">,99 €</span></div>
+                <div class="plan-per" id="pp-pe-dia">pro Monat</div>
+                <div class="plan-chips-sm">
+                  <div class="pchip pc-ram"><i class="ti ti-database"></i>32 GB RAM</div>
+                  <div class="pchip pc-cpu"><i class="ti ti-cpu"></i>12 vCPU</div>
+                  <div class="pchip pc-ssd"><i class="ti ti-device-hard-disk"></i>400 GB SSD</div>
+                </div>
+                <div class="pdv"></div>
+                <div class="plan-feat-sm"><span class="pfs-ok">✓</span>15 Server · 200 Spieler</div>
+                <div class="plan-feat-sm"><span class="pfs-ok">✓</span><span class="pfs-g">DDoS L3/L4/L7</span></div>
+                <div class="plan-feat-sm"><span class="pfs-ok">✓</span>ARK &amp; Palworld</div>
+                <div class="plan-sp"></div>
+                <button class="plan-btn-sm">Auswählen</button>
+              </div>
+              <div class="plan-sm ded">
+                <div class="plan-rib-ded">🪄 Dedicated</div>
+                <div class="plan-ic">🪄</div><div class="plan-nm" style="color:var(--purple)">Netherite</div><div class="plan-tl" style="color:rgba(167,139,250,.4)">Große Netzwerke</div>
+                <div class="plan-orig" id="pp-orig-n"></div>
+                <div class="plan-pr-row"><span class="plan-pr ded" id="pp-pr-n">59</span><span class="plan-cur">,99 €</span></div>
+                <div class="plan-per" id="pp-pe-n">pro Monat</div>
+                <div class="plan-chips-sm">
+                  <div class="pchip pc-ded"><i class="ti ti-infinity"></i>RAM unbegrenzt</div>
+                  <div class="pchip pc-ded"><i class="ti ti-cpu"></i>32 vCPU ded.</div>
+                  <div class="pchip pc-ded"><i class="ti ti-device-hard-disk"></i>2 TB NVMe</div>
+                </div>
+                <div class="pdv"></div>
+                <div class="plan-feat-sm"><span class="pfs-ok">✓</span><span class="pfs-p">∞ Server &amp; Spieler</span></div>
+                <div class="plan-feat-sm"><span class="pfs-ok">✓</span><span class="pfs-p">120 Tbps DDoS</span></div>
+                <div class="plan-feat-sm"><span class="pfs-ok">✓</span><span class="pfs-p">Root-Zugriff</span></div>
+                <div class="plan-sp"></div>
+                <button class="plan-btn-sm d">Kontakt</button>
+              </div>
+            </div>
+            <div class="pay-strip">
+              <div class="pay-it"><i class="ti ti-credit-card"></i> Stripe</div>
+              <div class="pdivider"></div>
+              <div class="pay-it"><i class="ti ti-brand-paypal"></i> PayPal</div>
+              <div class="pdivider"></div>
+              <div class="pay-it"><i class="ti ti-currency-bitcoin"></i> Bitcoin</div>
+              <div class="pdivider"></div>
+              <div class="pay-it"><i class="ti ti-currency-ethereum"></i> Ethereum</div>
+              <div class="pdivider"></div>
+              <div class="pay-it"><i class="ti ti-currency-dollar"></i> USDT</div>
+              <div class="pdivider"></div>
+              <div class="pay-it" style="color:var(--green)"><i class="ti ti-refresh"></i> Jederzeit kündbar</div>
+            </div>
+          </div>
+
+        </div><!-- /panel-main -->
+      </div><!-- /panel-layout -->
+    </div><!-- /panel-wrap -->
+  </div>
+</section>
+
+<!-- DDoS LANDING SECTION -->
+<section id="ddos">
+  <div class="container">
+    <div class="sec-label">DDoS Protection</div>
+    <div class="sec-title">Dein Server bleibt online.<br>Immer.</div>
+    <p class="sec-sub" style="margin-bottom:32px">Cloudflare Magic Transit mit 120 Tbps Anycast-Kapazität. Angriffe werden automatisch erkannt und in unter einer Sekunde gefiltert.</p>
+    <div class="shield-banner" style="margin-bottom:28px">
+      <div class="sh-icon"><i class="ti ti-shield-check"></i></div>
+      <div><div class="sh-t">DDoS protection active – alle Server geschützt</div><div class="sh-s">Cloudflare Magic Transit + Layer 3/4/7 TCP/UDP filtering · &lt;1s mitigation</div></div>
+      <div class="live-pill"><span class="pulse-dot"></span>Live monitoring</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px"><div style="font-size:11px;color:var(--text3);margin-bottom:8px;display:flex;align-items:center;gap:5px"><i class="ti ti-shield" style="color:var(--green)"></i>Blocked heute</div><div style="font-family:var(--display);font-size:26px;font-weight:700;color:var(--text)" id="land-ddos-bc">1.284</div><div style="font-size:11px;color:var(--green);margin-top:3px">Angriffe gestoppt</div></div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px"><div style="font-size:11px;color:var(--text3);margin-bottom:8px;display:flex;align-items:center;gap:5px"><i class="ti ti-bolt" style="color:var(--blue)"></i>Peak attack</div><div style="font-family:var(--display);font-size:26px;font-weight:700;color:var(--text)">18.4 Gbps</div><div style="font-size:11px;color:var(--text3);margin-top:3px">größter heute</div></div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px"><div style="font-size:11px;color:var(--text3);margin-bottom:8px;display:flex;align-items:center;gap:5px"><i class="ti ti-clock" style="color:var(--amber)"></i>Response time</div><div style="font-family:var(--display);font-size:26px;font-weight:700;color:var(--text)">&lt;1s</div><div style="font-size:11px;color:var(--green);margin-top:3px">avg mitigation</div></div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px"><div style="font-size:11px;color:var(--text3);margin-bottom:8px;display:flex;align-items:center;gap:5px"><i class="ti ti-network" style="color:var(--blue)"></i>Kapazität</div><div style="font-family:var(--display);font-size:26px;font-weight:700;color:var(--text)">120 Tbps</div><div style="font-size:11px;color:var(--text3);margin-top:3px">Anycast global</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING LANDING SECTION -->
+<section class="pricing-sec" id="pricing">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:6px">
+      <div class="sec-label" style="text-align:center">Pläne & Preise</div>
+      <div class="sec-title" style="text-align:center">Transparent.<br>Skalierbar. Fair.</div>
+      <p style="text-align:center;font-size:14px;color:var(--text3);margin-top:8px">Alle Ressourcen dediziert & garantiert · Jederzeit kündbar · Keine Mindestlaufzeit</p>
+    </div>
+    <div class="billing-toggle">
+      <span class="bt-l active" id="lbl-mo">Monatlich</span>
+      <div class="bt-switch" id="bt-switch" onclick="toggleLandBilling()"></div>
+      <span class="bt-l" id="lbl-yr">Jährlich</span>
+      <span class="save-badge">2 Monate gratis</span>
+    </div>
+    <div class="pricing-grid">
+      <div class="lplan">
+        <div class="lplan-ic">🪨</div><div class="lplan-nm">Dirt</div><div class="lplan-tl">Einstieg & Testen</div>
+        <div class="lplan-orig"></div>
+        <div class="lplan-pr-row"><span class="lplan-pr free">0</span><span class="lplan-cur">€</span></div>
+        <div class="lplan-per">für immer kostenlos</div>
+        <div class="lplan-chips">
+          <div class="lchip lc-ram"><i class="ti ti-database"></i>4 GB RAM</div>
+          <div class="lchip lc-cpu"><i class="ti ti-cpu"></i>2 vCPU</div>
+          <div class="lchip lc-ssd"><i class="ti ti-device-hard-disk"></i>25 GB SSD</div>
+        </div>
+        <div class="ldv"></div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span>1 Server</div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span>bis zu <span class="lpf-s">20 Spieler</span></div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span>Minecraft & Terraria</div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span>Basis-Konsole & Panel</div>
+        <div class="lplan-feat"><span class="lpf-no">✗</span><span style="color:var(--border2)">DDoS-Schutz</span></div>
+        <div class="lplan-feat"><span class="lpf-no">✗</span><span style="color:var(--border2)">Backups</span></div>
+        <div class="lplan-sp"></div>
+        <button class="lplan-btn cu">Kostenlos starten</button>
+      </div>
+      <div class="lplan featured">
+        <div class="lplan-rib">⭐ Beliebtester Plan</div>
+        <div class="lplan-ic">⚙️</div><div class="lplan-nm">Iron</div><div class="lplan-tl">Für SMPs & Game-Server</div>
+        <div class="lplan-orig" id="l-orig-i"></div>
+        <div class="lplan-pr-row"><span class="lplan-pr" id="l-pr-i">9</span><span class="lplan-cur">,99 €</span></div>
+        <div class="lplan-per" id="l-pe-i">pro Monat</div>
+        <div class="lplan-chips">
+          <div class="lchip lc-ram"><i class="ti ti-database"></i>16 GB RAM</div>
+          <div class="lchip lc-cpu"><i class="ti ti-cpu"></i>6 vCPU</div>
+          <div class="lchip lc-ssd"><i class="ti ti-device-hard-disk"></i>150 GB SSD</div>
+        </div>
+        <div class="ldv"></div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span>5 Server</div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span>bis zu <span class="lpf-s">80 Spieler</span></div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span>CS2, Valheim, Rust, 7DTD</div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span><span class="lpf-g">DDoS-Schutz L3/L4</span></div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span>5 Backups/Tag</div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span>Sub-Domain inklusive</div>
+        <div class="lplan-sp"></div>
+        <button class="lplan-btn p">Jetzt upgraden</button>
+      </div>
+      <div class="lplan">
+        <div class="lplan-ic">💎</div><div class="lplan-nm">Diamond</div><div class="lplan-tl">Community & Netzwerke</div>
+        <div class="lplan-orig" id="l-orig-dia"></div>
+        <div class="lplan-pr-row"><span class="lplan-pr" id="l-pr-dia">24</span><span class="lplan-cur">,99 €</span></div>
+        <div class="lplan-per" id="l-pe-dia">pro Monat</div>
+        <div class="lplan-chips">
+          <div class="lchip lc-ram"><i class="ti ti-database"></i>32 GB RAM</div>
+          <div class="lchip lc-cpu"><i class="ti ti-cpu"></i>12 vCPU</div>
+          <div class="lchip lc-ssd"><i class="ti ti-device-hard-disk"></i>400 GB SSD</div>
+        </div>
+        <div class="ldv"></div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span>15 Server</div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span>bis zu <span class="lpf-s">200 Spieler</span></div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span>Alle Spiele inkl. ARK & Palworld</div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span><span class="lpf-g">DDoS L3/L4/L7</span></div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span>Unbegrenzte Backups</div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span>Eigene Sub-Domain</div>
+        <div class="lplan-sp"></div>
+        <button class="lplan-btn">Auswählen</button>
+      </div>
+      <div class="lplan ded">
+        <div class="lplan-rib-ded">🪄 Dedicated & Unlimited</div>
+        <div class="lplan-ic">🪄</div><div class="lplan-nm" style="color:var(--purple)">Netherite</div><div class="lplan-tl" style="color:rgba(167,139,250,.4)">Große Netzwerke</div>
+        <div class="lplan-orig" id="l-orig-n"></div>
+        <div class="lplan-pr-row"><span class="lplan-pr ded" id="l-pr-n">59</span><span class="lplan-cur">,99 €</span></div>
+        <div class="lplan-per" id="l-pe-n">pro Monat · dedizierte Hardware</div>
+        <div class="lplan-chips">
+          <div class="lchip lc-ded"><i class="ti ti-infinity"></i>RAM unbegrenzt</div>
+          <div class="lchip lc-ded"><i class="ti ti-cpu"></i>32 vCPU dediziert</div>
+          <div class="lchip lc-ded"><i class="ti ti-device-hard-disk"></i>2 TB NVMe SSD</div>
+        </div>
+        <div class="ldv"></div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span><span class="lpf-p">Unbegrenzte Server & Spieler</span></div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span><span class="lpf-p">Alle Spiele + Proxy-Netzwerk</span></div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span><span class="lpf-p">120 Tbps DDoS Cloudflare</span></div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span><span class="lpf-p">Eigene Domain + dedizierte IP</span></div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span><span class="lpf-p">24/7 Priority Support</span></div>
+        <div class="lplan-feat"><span class="lpf-ok">✓</span><span class="lpf-p">Root-Zugriff auf Hardware</span></div>
+        <div class="lplan-sp"></div>
+        <button class="lplan-btn d">Kontakt aufnehmen</button>
+      </div>
+    </div>
+    <div class="pay-row">
+      <div class="pay-item"><i class="ti ti-credit-card" style="font-size:15px"></i> Stripe / Kreditkarte</div>
+      <div class="pay-div"></div>
+      <div class="pay-item"><i class="ti ti-brand-paypal" style="font-size:15px"></i> PayPal</div>
+      <div class="pay-div"></div>
+      <div class="pay-item"><i class="ti ti-currency-bitcoin" style="font-size:15px"></i> Bitcoin</div>
+      <div class="pay-div"></div>
+      <div class="pay-item"><i class="ti ti-currency-ethereum" style="font-size:15px"></i> Ethereum</div>
+      <div class="pay-div"></div>
+      <div class="pay-item"><i class="ti ti-currency-dollar" style="font-size:15px"></i> USDT</div>
+      <div class="pay-div"></div>
+      <div class="pay-item"><i class="ti ti-refresh" style="font-size:15px;color:var(--green)"></i> Jederzeit kündbar</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="fbrand"><div class="fbrand-box"><i class="ti ti-device-gamepad-2"></i></div>JuriHosting.com</div>
+      <p class="fdesc">Professionelles Game-Server-Hosting für Minecraft, CS2, Valheim, Rust und mehr. JuriHosting.com – Made in Germany, powered by Cloudflare.</p>
+      <div class="fpay">
+        <div class="fpay-b"><i class="ti ti-credit-card"></i> Stripe</div>
+        <div class="fpay-b"><i class="ti ti-brand-paypal"></i> PayPal</div>
+        <div class="fpay-b"><i class="ti ti-currency-bitcoin"></i> Crypto</div>
+      </div>
+    </div>
+    <div>
+      <div class="fcol-t">Produkt</div>
+      <a class="flink" href="#features">Features</a>
+      <a class="flink" href="#games">Spiele</a>
+      <a class="flink" href="#pricing">Preise</a>
+      <a class="flink" href="#ddos">DDoS-Schutz</a>
+      <a class="flink" href="#">API Docs</a>
+    </div>
+    <div>
+      <div class="fcol-t">Support</div>
+      <a class="flink" href="#">Discord</a>
+      <a class="flink" href="#">Dokumentation</a>
+      <a class="flink" href="#">Status-Seite</a>
+      <a class="flink" href="#">Kontakt</a>
+    </div>
+    <div>
+      <div class="fcol-t">Rechtliches</div>
+      <a class="flink" href="#">Impressum</a>
+      <a class="flink" href="#">Datenschutz</a>
+      <a class="flink" href="#">AGB</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2025 JuriHosting.com Alle Rechte vorbehalten.</div>
+    <div class="fstatus"><div class="fstatus-dot"></div> Alle Systeme betriebsbereit</div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+function pad(n){return n<10?'0'+n:String(n)}
+
+// ── Panel navigation ──
+function panelNav(id, btn){
+  document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.pnl').forEach(function(n){n.classList.remove('active')});
+  document.querySelectorAll('.psi').forEach(function(s){s.classList.remove('active')});
+  document.getElementById('pg-'+id).classList.add('active');
+  var nb=document.getElementById('nl-'+id); if(nb) nb.classList.add('active');
+  var sb=document.getElementById('si-'+id); if(sb) sb.classList.add('active');
+  if(id==='traffic' && !window.chartsBuilt){buildCharts(); window.chartsBuilt=true;}
+}
+
+// ── Traffic tabs ──
+function showTT(id, btn){
+  document.querySelectorAll('.tsec').forEach(function(s){s.classList.remove('active')});
+  document.querySelectorAll('.tt').forEach(function(t){t.classList.remove('active')});
+  document.getElementById('tt-'+id).classList.add('active');
+  if(btn) btn.classList.add('active');
+}
+
+// ── Create server game select ──
+function selGame(el, name, ver){
+  document.querySelectorAll('.gcs').forEach(function(g){g.classList.remove('sel')});
+  el.classList.add('sel');
+  var t=document.getElementById('create-title'); if(t) t.textContent=name+' – konfigurieren';
+  var v=document.getElementById('create-ver'); if(!v) return;
+  var opts={'Minecraft Java':['Paper 1.21.4 (empfohlen)','Vanilla 1.21.4','Fabric 1.21.4','Forge 1.20.1'],
+    'Minecraft Bedrock':['Bedrock latest'],'Counter-Strike 2':['CS2 Dedicated (latest)'],
+    'Valheim':['Valheim Dedicated (latest)'],'Rust':['Rust + Oxide (latest)','Rust Vanilla'],
+    'Terraria':['Vanilla (latest)','tModLoader (latest)'],'Palworld':['Palworld Dedicated (latest)'],
+    'ARK: Survival':['ASA (latest)','ASE Legacy'],'7 Days to Die':['7DTD (latest)']};
+  v.innerHTML=(opts[name]||[ver]).map(function(o){return'<option>'+o+'</option>'}).join('');
+}
+
+// ── Console ──
+var cs=0,cm=12,ch=4;
+setInterval(function(){
+  cs++; if(cs>=60){cs=0;cm++;} if(cm>=60){cm=0;ch++;}
+  var e=document.getElementById('con-upt'); if(e) e.textContent=pad(ch)+':'+pad(cm)+':'+pad(cs);
+  var cpu=+(1.5+Math.random()*3).toFixed(1);
+  var ce=document.getElementById('con-cpu'); var cb=document.getElementById('con-cpub');
+  if(ce) ce.textContent=cpu+'%'; if(cb) cb.style.width=cpu+'%';
+  var ram=+(0.7+Math.random()*0.5).toFixed(2);
+  var re=document.getElementById('con-ram'); var rb=document.getElementById('con-ramb');
+  if(re) re.textContent=ram+' GB'; if(rb) rb.style.width=Math.round(ram/16*100)+'%';
+}, 1200);
+
+function conSend(){
+  var inp=document.getElementById('con-input');
+  var cmd=inp.value.trim(); if(!cmd) return;
+  var box=document.getElementById('con-box');
+  var t=new Date();
+  var ts='['+pad(t.getHours())+':'+pad(t.getMinutes())+':'+pad(t.getSeconds())+']';
+  var line=document.createElement('span'); line.className='cl'; line.style.color='var(--text)';
+  line.textContent=ts+' [Console]: /'+cmd;
+  var caret=document.getElementById('con-caret');
+  if(caret) box.insertBefore(line,caret); else box.appendChild(line);
+  box.scrollTop=box.scrollHeight; inp.value='';
+}
+document.getElementById('con-input').addEventListener('keydown',function(e){if(e.key==='Enter') conSend();});
+
+// ── DDoS live counter ──
+var ddosCount=1284;
+setInterval(function(){
+  if(Math.random()>0.87){
+    ddosCount++;
+    ['dash-bc','ddos-bc','land-ddos-bc'].forEach(function(id){
+      var e=document.getElementById(id); if(e) e.textContent=ddosCount.toLocaleString('de-DE');
+    });
+    var types=['UDP flood','SYN flood','ICMP flood','DNS amp','TCP RST','NTP amp'];
+    var origs=[['CN','103'],['RU','185'],['BR','177'],['US','23'],['KR','14']];
+    var t=new Date(); var ts=pad(t.getHours())+':'+pad(t.getMinutes());
+    var ty=types[Math.floor(Math.random()*types.length)];
+    var or=origs[Math.floor(Math.random()*origs.length)];
+    var gb=(Math.random()*4+0.3).toFixed(1);
+    ['dash-alog','ddos-log'].forEach(function(lid){
+      var log=document.getElementById(lid); if(!log) return;
+      var row=document.createElement('div'); row.className='al'; row.style.background='rgba(26,111,255,.04)';
+      row.innerHTML='<span class="at">'+ts+'</span><span class="atp">'+ty+' · '+gb+' Gbps</span><span class="asrc">'+or[0]+' · '+or[1]+'.x</span><span class="abadge ab-bl">Blocked</span>';
+      log.insertBefore(row,log.firstChild);
+      if(log.children.length>6) log.removeChild(log.lastChild);
+    });
+  }
+}, 1800);
+
+// ── Panel billing toggle ──
+var panelYearly=false;
+var panelPrices={i:{mo:'9',yr:'6',orig:'9,99 €/mo',pe:'pro Monat',pey:'jährlich'},dia:{mo:'24',yr:'16',orig:'24,99 €/mo',pe:'pro Monat',pey:'jährlich'},n:{mo:'59',yr:'39',orig:'59,99 €/mo',pe:'pro Monat',pey:'jährlich · dediziert'}};
+function togglePanelBilling(){
+  panelYearly=!panelYearly;
+  document.getElementById('p-sw').classList.toggle('on',panelYearly);
+  document.getElementById('p-lbl-mo').classList.toggle('a',!panelYearly);
+  document.getElementById('p-lbl-yr').classList.toggle('a',panelYearly);
+  Object.keys(panelPrices).forEach(function(k){
+    var d=panelPrices[k];
+    var p=document.getElementById('pp-pr-'+k); var o=document.getElementById('pp-orig-'+k); var pe=document.getElementById('pp-pe-'+k);
+    if(p) p.textContent=panelYearly?d.yr:d.mo;
+    if(o) o.textContent=panelYearly?d.orig:'';
+    if(pe) pe.textContent=panelYearly?d.pey:d.pe;
+  });
+}
+
+// ── Landing billing toggle ──
+var landYearly=false;
+var landPrices={i:{mo:'9',yr:'6',orig:'9,99 €/mo',pe:'pro Monat',pey:'pro Monat, jährlich'},dia:{mo:'24',yr:'16',orig:'24,99 €/mo',pe:'pro Monat',pey:'pro Monat, jährlich'},n:{mo:'59',yr:'39',orig:'59,99 €/mo',pe:'pro Monat · dedizierte Hardware',pey:'pro Monat, jährlich · dediziert'}};
+function toggleLandBilling(){
+  landYearly=!landYearly;
+  document.getElementById('bt-switch').classList.toggle('on',landYearly);
+  document.getElementById('lbl-mo').classList.toggle('active',!landYearly);
+  document.getElementById('lbl-yr').classList.toggle('active',landYearly);
+  Object.keys(landPrices).forEach(function(k){
+    var d=landPrices[k];
+    var p=document.getElementById('l-pr-'+k); var o=document.getElementById('l-orig-'+k); var pe=document.getElementById('l-pe-'+k);
+    if(p) p.textContent=landYearly?d.yr:d.mo;
+    if(o) o.textContent=landYearly?d.orig:'';
+    if(pe) pe.textContent=landYearly?d.pey:d.pe;
+  });
+}
+
+// ── Charts ──
+function buildCharts(){
+  var hrs=[]; for(var i=23;i>=0;i--) hrs.push(i===0?'now':i+'h');
+  var clean=hrs.map(function(_,i){return+(2+Math.random()*7+(i>18?Math.random()*12:0)).toFixed(1)});
+  var atk=hrs.map(function(_,i){return+(Math.random()*1.5+(i>18?Math.random()*14:0)).toFixed(1)});
+  var ppass=hrs.map(function(){return Math.round(200+Math.random()*600)});
+  var pdrop=hrs.map(function(){return Math.round(10+Math.random()*150)});
+  var days=['Mo','Di','Mi','Do','Fr','Sa','So'];
+  var cln7=days.map(function(){return+(2+Math.random()*7).toFixed(1)});
+  var atk7=days.map(function(){return+(0.2+Math.random()*2.5).toFixed(1)});
+  var cfg={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#2e3450',font:{size:9}},grid:{color:'#1a1e2e'},border:{color:'#1a1e2e'}},y:{ticks:{color:'#2e3450',font:{size:9}},grid:{color:'#1a1e2e'},border:{color:'#1a1e2e'}}}};
+  var c1=document.getElementById('c24h'); var c2=document.getElementById('cpps'); var c3=document.getElementById('c7d');
+  if(c1) new Chart(c1,{type:'line',data:{labels:hrs,datasets:[{data:clean,borderColor:'#1a6fff',backgroundColor:'rgba(26,111,255,.07)',borderWidth:1.5,pointRadius:0,tension:0.4},{data:atk,borderColor:'#ef4444',backgroundColor:'rgba(239,68,68,.07)',borderWidth:1.5,pointRadius:0,tension:0.4}]},options:JSON.parse(JSON.stringify(cfg))});
+  if(c2) new Chart(c2,{type:'bar',data:{labels:hrs,datasets:[{data:ppass,backgroundColor:'rgba(34,197,94,.55)',borderRadius:2},{data:pdrop,backgroundColor:'rgba(245,158,11,.55)',borderRadius:2}]},options:JSON.parse(JSON.stringify(cfg))});
+  if(c3) new Chart(c3,{type:'bar',data:{labels:days,datasets:[{data:cln7,backgroundColor:'rgba(26,111,255,.65)',borderRadius:3},{data:atk7,backgroundColor:'rgba(239,68,68,.65)',borderRadius:3}]},options:JSON.parse(JSON.stringify(cfg))});
+}
+
+// ── Nav scroll highlight ──
+window.addEventListener('scroll',function(){
+  ['features','games','dashboard','ddos','pricing'].forEach(function(id){
+    var el=document.getElementById(id); if(!el) return;
+    var top=el.offsetTop-80; var bot=top+el.offsetHeight;
+    var link=document.querySelector('a.nav-link[href="#'+id+'"]');
+    if(link){
+      if(window.scrollY>=top&&window.scrollY<bot) link.classList.add('active');
+      else link.classList.remove('active');
+    }
+  });
+});
+</script>
+</body>
+</html>
